@@ -32,7 +32,7 @@ current url in the store.
 
 ## Example
 
-Example initialization - add the router.middleware to redux
+Example initialization - add the router middleware to redux
 ```
 var riot = require('riot')
 var redux = require('redux')
@@ -41,7 +41,7 @@ var router = require('riot-redux-router-immutable')
 var rootReducer = require('./app/reducer')
 
 var createStoreWithMiddleware = redux.compose(
-  redux.applyMiddleware(router.middleware),
+  redux.applyMiddleware(router.middleware.factory()),
   // your other redux middleware here...
 )(redux.createStore)
 
