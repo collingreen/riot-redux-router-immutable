@@ -3,36 +3,46 @@ var riot = require('riot')
 var actions = require('./actions')
 
 // URL separator for riot router
-var separator = '/'
+var defaultBase = '#'
 
-function riotRouterMiddleware(_ref) {
-  var dispatch = _ref.dispatch
-  var getState = _ref.getState
+function riotRouterMiddlewareFactory(routeBase) {
+    routeBase = routeBase || defaultBase
 
-  // listen for riot router changes - re-dispatch with routeChanged
-  riot.route(function() {
-    var args = Array.prototype.slice.call(arguments)
-    dispatch(actions.routeChanged(args.join(separator)))
-  })
+    let middleware = function riotRouterMiddleware(_ref) {
+      var dispatch = _ref.dispatch
+      var getState = _ref.getState
 
-  // set the base route separator
-  riot.route.base(separator)
+      // listen for riot router changes - re-dispatch with routeChanged
+      riot.route(function() {
+        var args = Array.prototype.slice.call(arguments)
+        dispatch(actions.routeChanged(args.join('/')))
+      })
 
-  // start listening to routes immediately
-  riot.route.start(true)
-
-  return function (next) {
-    return function (action) {
-      // allow everything except ROUTER_GO_ACTION through
-      if (action.type !== actions.ROUTER_GO_ACTION) {
-        next(action)
-        return
+      // set the route base if given
+      if (routeBase) {
+        riot.route.base(routeBase)
       }
 
-      // call riot router using action payload
-      riot.route(action.data)
+      // start listening to routes immediately
+      riot.route.start(true)
+
+      return function (next) {
+        return function (action) {
+          // allow everything except ROUTER_GO_ACTION through
+          if (action.type !== actions.ROUTER_GO_ACTION) {
+            next(action)
+            return
+          }
+
+          // call riot router using action payload
+          riot.route(action.data)
+        }
+      }
     }
-  }
+
+    return middleware
 }
 
-module.exports = riotRouterMiddleware
+module.exports = {
+  factory: riotRouterMiddlewareFactory
+}
