@@ -20,5 +20,10 @@
   "bugs": {
     "url": "https://github.com/collingreen/riot-redux-router-immutable/issues"
   },
-  "homepage": "https://github.com/collingreen/riot-redux-router-immutable#readme"
+  "homepage": "https://github.com/collingreen/riot-redux-router-immutable#readme",
+  "dependencies": {
+    "immutable": "^3.8.1",
+    "redux-immutable": "^3.0.8"
+  },
+  "devDependencies": {}
 }
