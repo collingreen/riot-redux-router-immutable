@@ -8,7 +8,7 @@ var defaultBase = '#'
 function riotRouterMiddlewareFactory(routeBase) {
     routeBase = routeBase || defaultBase
 
-    let middleware = function riotRouterMiddleware(_ref) {
+    var middleware = function riotRouterMiddleware(_ref) {
       var dispatch = _ref.dispatch
       var getState = _ref.getState
 
