@@ -1,6 +1,6 @@
 {
   "name": "riot-redux-router-immutable",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "ImmutableJS + RiotJS Router + Redux Middleware",
   "main": "src/index.js",
   "scripts": {
@@ -23,7 +23,9 @@
   "homepage": "https://github.com/collingreen/riot-redux-router-immutable#readme",
   "dependencies": {
     "immutable": "^3.8.1",
-    "redux-immutable": "^3.0.8"
+    "redux": "^3.7.2",
+    "redux-immutable": "^3.0.8",
+    "riot-route": "^3.1.2"
   },
   "devDependencies": {}
 }
